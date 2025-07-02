@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:latest # Docker Hub からダウンロード
+        # image: nginx:latest # Docker Hub からダウンロード
+        image: nginx:1.23.0 # ここを更新
         ports:
         - containerPort: 80
 ---
