@@ -1,35 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: playground-deployment
 spec:
   selector:
     matchLabels:
-      app: nginx
+      app: playground
   replicas: 1
   template:
     metadata:
       labels:
-        app: nginx
+        app: playground
     spec:
       containers:
-      - name: nginx
-        # image: nginx:latest # Docker Hub からダウンロード
-        image: nginx:1.23.0 # ここを更新
+      - name: playground
+        image: wil42/playground:v1  # ← Docker Hub からこのイメージを使う
         ports:
         - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service
+  name: playground-service
 spec:
   selector:
-    app: nginx
+    app: playground  # ← Deployment と同じラベルにする
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
-  type: LoadBalancer # K3d のロードバランサー経由でアクセス可能にする
-
+  type: LoadBalancer
   
